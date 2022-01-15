@@ -13,3 +13,5 @@ class Solution {
         return sb.reverse().toString();
     }
 }
+
+// Also LL can be used. Same logic for adding big numbers.
