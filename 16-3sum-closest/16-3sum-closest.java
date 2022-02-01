@@ -6,14 +6,17 @@ class Solution {
             int start = i + 1, end = num.length - 1;
             while (start < end) {
                 int sum = num[i] + num[start] + num[end];
+                if(sum == target)
+                    return target;
+                if (Math.abs(sum - target) < Math.abs(result - target)) {
+                    result = sum;
+                }
                 if (sum > target) {
                     end--;
                 } else {
                     start++;
                 }
-                if (Math.abs(sum - target) < Math.abs(result - target)) {
-                    result = sum;
-                }
+                
             }
         }
         return result;
