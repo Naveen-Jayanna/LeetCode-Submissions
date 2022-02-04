@@ -8,13 +8,13 @@ class Solution {
         int[] alpha = new int[26];
         int[] temp = new int[26];
         for(char c:p.toCharArray())
-            alpha[c%97]++;
+            alpha[c - 'a']++;
 
         for(int i=0; i<size_s-size_p+1; i++){
             boolean flag = true;
             temp = alpha.clone();
             for(int j=0; j<size_p;j++)
-                temp[s.charAt(j+i)%97]--;
+                temp[s.charAt(j+i)- 'a']--;
             
             for(int k=0; k<25; k++){
                 if(temp[k]!=0){
