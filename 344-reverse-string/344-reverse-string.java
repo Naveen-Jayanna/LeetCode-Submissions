@@ -5,7 +5,6 @@ class Solution {
             char temp = s[start];
             s[start++] = s[end];
             s[end--] = temp;
-            
         }
             
     }
