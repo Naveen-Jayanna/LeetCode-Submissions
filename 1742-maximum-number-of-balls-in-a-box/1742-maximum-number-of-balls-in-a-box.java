@@ -8,8 +8,9 @@ class Solution {
                 sum += num%10;
                 num /= 10;
             }
-            map.put(sum, map.getOrDefault(sum,0) + 1);
-            count = count < map.get(sum) ? map.get(sum) : count;
+            int val = map.getOrDefault(sum,0);
+            map.put(sum, val + 1);
+            count = count < val + 1 ? val + 1 : count;
         }
         return count;
     }
