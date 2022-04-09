@@ -1,25 +1,21 @@
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
-        HashMap<Integer,Integer> map = new HashMap<>();
-        ArrayList<Integer> list = new ArrayList<>();
-        for(int i:nums){
-            map.put(i, map.getOrDefault(i,0)+1);
+        if(k==nums.length) return nums;
+        Map<Integer, Integer>map = new HashMap<>();
+        PriorityQueue<Map.Entry<Integer, Integer>> maxHeap = new PriorityQueue<>((a,b)->{return b.getValue() - a.getValue();});
+        for(int i=0; i<nums.length; i++){
+            map.put(nums[i], map.getOrDefault(nums[i], 0)+1);
         }
-        TreeMap<Integer, List<Integer>> freqMap = new TreeMap<>();
-        for(int num : map.keySet()){
-           int freq = map.get(num);
-           if(!freqMap.containsKey(freq)){
-               freqMap.put(freq, new LinkedList<>());
-           }
-           freqMap.get(freq).add(num);
+       
+        for(Map.Entry<Integer, Integer> entry: map.entrySet()){
+            maxHeap.add(entry);
+        }
+        int[] list = new int[k];
+        while(k>0){
+            list[k-1]=maxHeap.poll().getKey();
+            k--;
         }
         
-        List<Integer> res = new ArrayList<>();
-        while(res.size()<k){
-            Map.Entry<Integer, List<Integer>> entry = freqMap.pollLastEntry();
-            res.addAll(entry.getValue());
-        }
-        int[] arr = res.stream().mapToInt(i -> i).toArray();
-        return arr;
+        return list;
     }
 }
