@@ -4,40 +4,13 @@ class Solution {
         StringBuilder str = new StringBuilder();
         for(char ch: target.toCharArray()){
             int val = ch - 'a';
-            int x_curr = val/5;
-            int y_curr = val%5;
-            int x_diff = Math.abs(x-x_curr);
-            int y_diff = Math.abs(y-y_curr);
-            
-           if(x>x_curr){
-                while(x_diff!=0){
-                    str.append("U");
-                    x_diff--;
-                }
-            }
-            if(y>y_curr){
-                while(y_diff!=0){
-                    str.append("L");
-                    y_diff--;
-                }
-            }
-            if(x<x_curr){
-                while(x_diff!=0){
-                    str.append("D");
-                    x_diff--;
-                }
-            }
-            
-            if(y<y_curr){
-                while(y_diff!=0){
-                    str.append("R");
-                    y_diff--;
-                }
-            }
-            str.append("!");
-            x=x_curr;
-            y=y_curr;
-                
+            int x1 = val/5;
+            int y1 = val%5;
+            while (x1 < x) {x--; str.append('U');}
+            while (y1 > y) {y++; str.append('R');}
+            while (y1 < y) {y--; str.append('L');}
+            while (x1 > x) {x++; str.append('D');}
+            str.append('!');
         }
         return str.toString();
     }
