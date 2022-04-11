@@ -1,5 +1,5 @@
 class Solution {
-     int res = 0, empty = 1, sx, sy, ex, ey;
+     int res = 0, empty = 1, sx, sy;
     public int uniquePathsIII(int[][] grid) {
         int m = grid.length, n = grid[0].length;
         for (int i = 0; i < m; ++i) {
