@@ -17,8 +17,7 @@ class Solution {
                     int a = cost[i][j];
                     int b = cost[i][j + 1];
                     int c = cost[i + 1][j];
-                    cost[i + 1][j + 1] = Math.min(a,Math.min(b,c));
-                    cost[i + 1][j + 1]++;
+                    cost[i + 1][j + 1] = Math.min(a,Math.min(b,c)) + 1;
                 }
             }
         }
