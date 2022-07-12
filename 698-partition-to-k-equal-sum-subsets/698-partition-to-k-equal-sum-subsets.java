@@ -1,26 +1,41 @@
 class Solution {
-    public boolean canPartitionKSubsets(int[] A, int k) {
-        if (k > A.length) return false;
-        int sum = 0;
-        for (int num : A) sum += num;
-        if (sum % k != 0) return false;
-        boolean[] visited = new boolean[A.length];
-        Arrays.sort(A);
-        return dfs(A, 0, A.length - 1, visited, sum / k, k);
-    }
-
-    public boolean dfs(int[] A, int sum, int st, boolean[] visited, int target, int round) {
-        if (round == 0) return true;
-        if (sum == target && dfs(A, 0, A.length - 1, visited, target, round - 1))
+       public boolean backtrack(int[] nums, int[] res, int target, int n, int index) {
+        if (index == -1) {
+            for (int r : res) {
+                if (r > target) {
+                    return false;
+                }
+            }
             return true;
-        for (int i = st; i >= 0; --i) {
-            if (!visited[i] && sum + A[i] <= target) {
-                visited[i] = true;
-                if (dfs(A, sum + A[i], i - 1, visited, target, round))
+        }
+        for (int i = 0; i < res.length; i++) {
+            if (i - 1 >= 0 && res[i - 1] == 0) {
+                break;
+            }
+            if (res[i] + nums[index] <= target) {
+                res[i] += nums[index];
+                if (backtrack(nums, res, target, n, index-1)) {
                     return true;
-                visited[i] = false;
+                }
+                res[i] -= nums[index];
             }
         }
         return false;
+    }
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        // calculate sum first
+        int sum = 0;
+        int max = Integer.MIN_VALUE;
+        for (int num : nums) {
+            sum += num;
+            max = Math.max(max, num);
+        }
+        if (sum % k != 0 || max > sum / k) {
+            return false;
+        }
+        int partSum = sum / k;
+        Arrays.sort(nums);
+        int[] res = new int[k];
+        return backtrack(nums, res, partSum, nums.length, nums.length - 1);
     }
 }
