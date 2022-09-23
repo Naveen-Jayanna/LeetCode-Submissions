@@ -1,7 +1,8 @@
 class Solution {
     public int[] sumEvenAfterQueries(int[] nums, int[][] queries) {
-        ArrayList<Integer> result = new ArrayList<>();
+        int result[] = new int[queries.length];
         int even_sum = 0;
+        int j= 0;
         for(int i=0; i<nums.length; i++){
             if(nums[i]%2 ==0)
                 even_sum += nums[i];
@@ -20,8 +21,8 @@ class Solution {
                 if(temp%2 == 0)
                     even_sum -= temp;
             }
-            result.add(even_sum);
+            result[j++] = even_sum;
         }
-        return result.stream().mapToInt(i -> i).toArray();
+        return result;
     }
 }
