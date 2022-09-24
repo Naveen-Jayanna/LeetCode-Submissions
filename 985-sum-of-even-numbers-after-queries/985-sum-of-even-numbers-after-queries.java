@@ -8,8 +8,8 @@ class Solution {
                 even_sum += num;
         }
 
-        for(int[] query:queries){
-            int pos = query[1], val = query[0];
+        for(int i=0; i<queries.length; i++){
+            int pos = queries[i][1], val = queries[i][0];
             int temp = nums[pos];
             nums[pos] += val;
             if((nums[pos] & 1)== 0){
