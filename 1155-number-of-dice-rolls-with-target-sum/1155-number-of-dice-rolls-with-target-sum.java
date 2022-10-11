@@ -1,46 +1,24 @@
 class Solution {
-     int MOD = 1000000000 + 7;
-    Map<String, Integer> memo = new HashMap<>();
-    public int numRollsToTarget(int d, int f, int target) {
-        if (d == 0 && target == 0) {
-            return 1;
+    int[][] dp;
+    public int numRollsToTarget(int n, int k, int target) {
+        dp = new int[n+1][target+1];
+        for(int[] arr : dp){
+            Arrays.fill(arr, -1);
         }
-        if(d > target || d * f < target){
-            return 0;
+        return getTraverse(n, k, target);
+    }
+    
+    public int getTraverse(int n, int k, int target){
+        if(target < n || target > n*k) return 0;
+        if(n==1) return target <= k ? 1 : 0;
+        if(dp[n][target] != -1) return dp[n][target];
+        int sum =0;
+        for(int i=1 ; i<=k;i++){
+            sum+=getTraverse(n-1, k, target-i);
+            sum%=1000000007;
+            
         }
-        String str = d + " " + target;
-        if (memo.containsKey(str)) {
-            return memo.get(str);
-        }
-        int res = 0;
-        for (int i = 1; i <= f; i++) {
-            if (target >= i) {
-                res = (res + numRollsToTarget(d - 1, f, target - i)) % MOD;
-            } else {
-                break;
-            }
-        }
-        memo.put(str, res);
-        return res;
+        dp[n][target]=sum;
+        return sum;
     }
 }
-
-/*
-public int numRollsToTarget(int d, int f, int target) {
-        int MOD = (int)Math.pow(10, 9) + 7;
-        long[][] dp = new long[d + 1][target + 1];
-        dp[0][0] = 1;
-        for (int i = 1; i <= d; i++) {
-            for (int j = 0; j <= target; j++) {
-                for (int k = 1; k <= f; k++) {
-                    if (j >= k) {
-                        dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % MOD;
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-        return (int)dp[d][target];
-    }
-*/
