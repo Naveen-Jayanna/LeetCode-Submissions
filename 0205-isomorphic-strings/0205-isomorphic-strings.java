@@ -11,5 +11,5 @@ class Solution {
             arr2[t.charAt(i)] = s.charAt(i);
         }
         return true;
-}
+    }
 }
