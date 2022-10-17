@@ -3,12 +3,13 @@ class Solution {
         if(sentence.length() <26)
             return false;
         int[] str = new int[26];
+        boolean check = false;
         for(char ch: sentence.toCharArray())
-            str[ch - 'a']++;
+            if(str[ch-'a'] == 0)
+                str[ch - 'a']++;
         
-        for(int count: str)
-            if(count==0)
-                return false;
+        if(Arrays.toString(str).contains("0"))
+            return false;
         return true;
     }
 }
