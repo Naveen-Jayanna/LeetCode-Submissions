@@ -14,9 +14,11 @@ class Solution {
     public int[] dfs(char[] label,int[] res,int node,int parent,ArrayList<Integer>[] adj){
         int[] freq = new int[26];
         for(int child : adj[node]){
-            if(child == parent) continue;
+            if(child == parent)
+                continue;
             int[] get = dfs(label,res,child,node,adj);
-            for(int i = 0;i<26;i++) freq[i] += get[i];
+            for(int i = 0;i<26;i++)
+                freq[i] += get[i];
         }
         res[node] = ++freq[label[node]-'a'];
         return freq;
