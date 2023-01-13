@@ -1,33 +1,41 @@
 class Solution {
-    int ans;
+    int ans = 1;
+    int dist[] = new int[100005];
+    
     public int longestPath(int[] parent, String s) {
-        int n = parent.length;
-        List<List<Integer>> store = new ArrayList<>();
-        for(int i = 0; i < n; i++) 
-            store.add(new ArrayList<Integer>());
         
-        for(int i = 1; i < n; i++)
-            store.get(parent[i]).add(i);
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
         
-        ans = Integer.MIN_VALUE;
-        dfs(store, 0, s);
-        return ans;
+        for(int i=0; i<s.length(); i++) list.add(new ArrayList<>());
+        
+        for(int i=1; i<s.length(); i++){
+            list.get(parent[i]).add(i);
+        }
+
+        dfs(0, s, list);
+        
+        return ans;        
     }
     
-    public int dfs(List<List<Integer>> graph, int curr, String s) {
-        int firstmax = 0, secondmax = 0;
-
-        for(int i : graph.get(curr)) {
-            int cost = dfs(graph, i, s);
-            if(s.charAt(curr) != s.charAt(i))
-				if(cost>firstmax) {
-					secondmax = firstmax;
-					firstmax = cost;
-				} else if(cost > secondmax) {
-					secondmax = cost;
-				}
+    public void dfs(int src, String s, ArrayList<ArrayList<Integer>> list){
+        
+        dist[src] = 1; 
+        // cuz at first '0'(root) has 1 distance only and same goes for 'leaf' and other nodes 
+        
+        for(int child : list.get(src)){
+            
+            dfs(child, s, list);
+            
+            if(s.charAt(child) != s.charAt(src)){
+                
+                ans = Math.max(ans, dist[src] + dist[child]);
+                // total distance as a span
+                
+                dist[src] = Math.max(dist[src], dist[child] +1); 
+                // max child distance of root is maintained as dist[src] for future answers, if any               
+            }            
+            
         }
-        ans = Math.max(firstmax+secondmax+1, ans);
-        return firstmax+1;
+        
     }
 }
