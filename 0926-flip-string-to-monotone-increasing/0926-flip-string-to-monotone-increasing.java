@@ -3,21 +3,20 @@ class Solution {
         if(s == null || s.length() <= 0 )
 		    return 0;
 
-        char[] sChars = s.toCharArray();
-        int flipCount = 0;
-        int onesCount = 0;
+        char[] str = s.toCharArray();
+        int minFlips = 0;
+        int minOne = 0;
+        for(int i=0; i < s.length(); i++)
+        {
+           if(str[i] == '1')
+               minOne++;
 
-        for(int i=0; i<sChars.length; i++){
-            if(sChars[i] == '0'){
-                if(onesCount == 0) continue;
-                else flipCount++;
-            }else{
-                onesCount++;
-            }
-            if(flipCount > onesCount){
-                flipCount = onesCount;
-            }
+            else if(minOne > 0)
+           {
+               minFlips++;
+               minOne--;
+           }
         }
-        return flipCount;
+        return minFlips;
     }
 }
