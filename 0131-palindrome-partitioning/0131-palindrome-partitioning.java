@@ -1,34 +1,32 @@
 class Solution {
     public List<List<String>> partition(String s) {
-        if(s == null || s.length() == 0) return new ArrayList<>();
-        
-        List<List<String>> result = new ArrayList<>();
-        helper(s, new ArrayList<>(), result);
-        return result;
+        List<List<String>>res = new ArrayList<>();
+        List<String>ds = new ArrayList<>();
+        recur(0,ds,res,s);
+        return res;
     }
-    public void helper(String s, List<String> step, List<List<String>> result) {
-        // Base case
-        if(s == null || s.length() == 0) {
-            result.add(new ArrayList<>(step));
+    public void recur(int ind , List<String>ds , List<List<String>>res , String s){
+        if(ind == s.length()){
+            res.add(new ArrayList<>(ds));
             return;
         }
-        for(int i = 1; i <= s.length(); i++) {
-            String temp = s.substring(0, i);
-            if(!isPalindrome(temp)) continue;
-            
-            step.add(temp);
-            helper(s.substring(i, s.length()), step, result); 
-            step.remove(step.size() - 1);
+
+        for(int i=ind ; i<s.length() ; i++){
+            if(isPalin(s,ind,i)){
+                ds.add(s.substring(ind , i+1));
+                recur(i+1 , ds , res , s);
+                ds.remove(ds.size()-1);
+            }
         }
-        return;
     }
-    public boolean isPalindrome(String s) {
-        int left = 0, right = s.length() - 1;
-        while(left <= right) {
-            if(s.charAt(left) != s.charAt(right))
+
+    public boolean isPalin(String s , int start , int end){
+        while(start<=end){
+            if(s.charAt(start)!=s.charAt(end)){
                 return false;
-            left ++;
-            right --;
+            }
+            start++;
+            end--;
         }
         return true;
     }
