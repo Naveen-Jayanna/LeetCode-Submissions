@@ -26,15 +26,12 @@ class Solution {
     public void dfs(TreeNode root, ArrayList<Integer> list, int sum){
         if(root == null)
                 return;
-
+        sum *= 10;
+        sum += root.val;
         if(root.left == null && root.right == null){
-            sum *= 10;
-            sum += root.val;
             list.add(sum);
             return;
         }
-        sum *= 10;
-        sum += root.val;
         dfs(root.left, list, sum);
         dfs(root.right, list, sum);
     }
