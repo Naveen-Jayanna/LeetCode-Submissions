@@ -1,16 +1,21 @@
 class Solution {
     public boolean isValid(String s) {
-        Stack stk = new Stack();
-        for(char ch: s.toCharArray()){
-            if(ch == '(' || ch == '{' || ch == '[')
-                stk.push(ch);
-            else{
-                if(stk.size()==0)
-                    return false;
-                if(Math.abs((char)stk.pop()-ch) > 3)
+
+        int i = -1;
+        char[] stack = new char[s.length()];
+        for (char ch : s.toCharArray()) {
+            if (ch == '(' || ch == '{' || ch == '[')
+                stack[++i] = ch;
+            else {
+                if (i >= 0
+                    && ((stack[i] == '(' && ch == ')')
+                        || (stack[i] == '{' && ch == '}')
+                        || (stack[i] == '[' && ch == ']')))
+                    i--;
+                else
                     return false;
             }
         }
-        return stk.size()==0;
+        return i == -1;
     }
 }
