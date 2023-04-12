@@ -8,6 +8,6 @@ class Solution {
             else
                 stack[i++]=c;
         }
-        return String.valueOf(stack).substring(0,i);
+        return String.valueOf(stack,0,i);
     }
 }
